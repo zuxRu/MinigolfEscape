@@ -858,3 +858,210 @@ body {
 .mt-2 { margin-top: 20px; }
 .mt-3 { margin-top: 30px; }
 .mt-4 { margin-top: 40px; }
+
+/* Demo Config Button */
+.demo-config-button {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-size: 1.8em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+}
+
+.demo-config-button:hover {
+  background: rgba(255, 255, 255, 0.45);
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* Config Overlay */
+.config-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Config Panel */
+.config-panel {
+  background: white;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 520px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.3s ease;
+  overflow: hidden;
+}
+
+.config-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.config-header h2 {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.config-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2em;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.config-close:hover {
+  opacity: 1;
+}
+
+.config-body {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.config-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.config-field > label {
+  font-weight: 700;
+  font-size: 1.05em;
+  color: #444;
+}
+
+/* Hole Selector */
+.hole-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.hole-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  background: #f5f5f5;
+  font-size: 1.15em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #555;
+}
+
+.hole-btn:hover {
+  border-color: #667eea;
+  background: #eef0ff;
+}
+
+.hole-btn.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Course Selector */
+.course-selector {
+  display: flex;
+  gap: 12px;
+}
+
+.course-btn {
+  flex: 1;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+  background: #f5f5f5;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #555;
+}
+
+.course-btn:hover {
+  border-color: #667eea;
+  background: #eef0ff;
+}
+
+.course-btn.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Toggle Button */
+.toggle-btn {
+  width: 80px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.on {
+  background: #4CAF50;
+  color: white;
+  border-color: #4CAF50;
+}
+
+.toggle-btn.off {
+  background: #f5f5f5;
+  color: #999;
+  border-color: #ddd;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.05);
+}
+
+.config-hint {
+  font-size: 0.85em;
+  color: #999;
+}
+
+/* Config Footer */
+.config-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 30px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+}

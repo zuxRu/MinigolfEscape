@@ -7,16 +7,16 @@ import ScoringScreen from './components/ScoringScreen';
 import FinalSummary from './components/FinalSummary';
 import EmailCollection from './components/EmailCollection';
 import ConfirmationScreen from './components/ConfirmationScreen';
-
-// Configuration - This would normally come from environment variables
-const CONFIG = {
-  holeNumber: 9, // Change this to test different holes (1-9)
-  course: 'A',
-  isRegistrationHole: false, // Set to true for hole 1
-  isFinalHole: true, // Set to true for hole 9
-};
+import DemoConfigPanel from './components/DemoConfigPanel';
 
 function App() {
+  const [config, setConfig] = useState({
+    holeNumber: 1,
+    course: 'A',
+    isRegistrationHole: true,
+    isFinalHole: false,
+  });
+  const [showConfig, setShowConfig] = useState(false);
   const [screen, setScreen] = useState('idle'); // idle, registration, modeSelection, prompt, scoring, final, email, confirmation
   const [gameData, setGameData] = useState(null);
   const [adminTapCount, setAdminTapCount] = useState(0);
@@ -24,7 +24,7 @@ function App() {
 
   // Simulate RFID scan (in production, this would come from RFID reader)
   const handleRFIDScan = () => {
-    if (CONFIG.isRegistrationHole) {
+    if (config.isRegistrationHole) {
       // If hole 1, start registration
       setScreen('registration');
     } else {
@@ -88,13 +88,13 @@ function App() {
       ...gameData,
       scores,
       penalties,
-      holes_completed: [...gameData.holes_completed, CONFIG.holeNumber]
+      holes_completed: [...gameData.holes_completed, config.holeNumber]
     };
     
     setGameData(updatedGameData);
     
     // Check if this is the final hole
-    if (CONFIG.isFinalHole || updatedGameData.holes_completed.length === 9) {
+    if (config.isFinalHole || updatedGameData.holes_completed.length === 9) {
       setScreen('final');
     } else {
       setScreen('confirmation');
@@ -176,7 +176,7 @@ function App() {
       <div className="app-header">
         <h1>⛳ THE GREAT ESCAPE</h1>
         <div className="hole-info">
-          Course {CONFIG.course} - Hole {CONFIG.holeNumber}
+          Course {config.course} - Hole {config.holeNumber}
         </div>
       </div>
 
@@ -200,7 +200,7 @@ function App() {
         {screen === 'prompt' && (
           <PromptDisplay
             gameData={gameData}
-            holeNumber={CONFIG.holeNumber}
+            holeNumber={config.holeNumber}
             onStartScoring={handleStartScoring}
           />
         )}
@@ -208,7 +208,7 @@ function App() {
         {screen === 'scoring' && (
           <ScoringScreen
             gameData={gameData}
-            holeNumber={CONFIG.holeNumber}
+            holeNumber={config.holeNumber}
             onSubmit={handleScoresSubmitted}
             onCancel={() => setScreen('prompt')}
           />
@@ -249,6 +249,29 @@ function App() {
         <button className="cancel-button" onClick={handleCancel}>
           Cancel
         </button>
+      )}
+
+      {/* Demo Config Button */}
+      <button
+        className="demo-config-button"
+        onClick={() => setShowConfig(true)}
+        title="Demo Settings"
+      >
+        &#9881;
+      </button>
+
+      {/* Demo Config Panel */}
+      {showConfig && (
+        <DemoConfigPanel
+          config={config}
+          onConfigChange={(newConfig) => {
+            setConfig(newConfig);
+            setScreen('idle');
+            setGameData(null);
+            setCountdown(null);
+          }}
+          onClose={() => setShowConfig(false)}
+        />
       )}
 
       {/* Admin Corner (for staff access - 6 taps) */}
